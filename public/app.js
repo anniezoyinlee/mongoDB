@@ -4,13 +4,13 @@ $.getJSON("/articles", function(data) {
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
     $("#articles").append(
-      `<div class="title" data-id=${data[i]._id}>${data[i].title}</div>
+      `<div class="title" >${data[i].title}</div>
       <br />
       <a href="${data[i].link}" target='_blank'>
       <div class = "link" >${data[i].link}</div>
       </a>
       <br/>
-      <div class="desc">
+      <div class="desc" data-id=${data[i]._id}>
       <p>${data[i].description}</p>
       </div>`
     );
@@ -18,7 +18,7 @@ $.getJSON("/articles", function(data) {
 });
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
+$(document).on("click", ".desc", function() {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
@@ -33,7 +33,7 @@ $(document).on("click", "p", function() {
     .then(function(data) {
       console.log(data);
       // The title of the article
-      $("#notes").append("<h2>" + data.title + "</h2>");
+      $("#notes").append("<h2>" + data.title + "</h2>");  
       // An input to enter a new title
       $("#notes").append("<input id='titleinput' name='title' >");
       // A textarea to add a new note body
