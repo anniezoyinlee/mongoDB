@@ -27,9 +27,12 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/apnewsscraper", {
-  useNewUrlParser: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/apnewsscraper",
+  {
+    useNewUrlParser: true
+  }
+);
 
 // Routes
 
@@ -39,12 +42,11 @@ app.get("/scrape", function(req, res) {
   axios.get("http://www.apnews.com").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-console.log(response)
+
     // Now, we grab every h2 within an article tag, and do the following:
     $(".FeedCard h1").each(function(i, element) {
       // Save an empty result object
       var result = {};
-
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this).text();
       result.link =
@@ -55,11 +57,10 @@ console.log(response)
       result.description = $(this)
         .parent("a")
         .parent(".CardHeadline")
-        .siblings(".c0164")
+        .siblings(".c0161")
         .children(".content")
         .children("p")
         .text();
-      console.log(result);
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
