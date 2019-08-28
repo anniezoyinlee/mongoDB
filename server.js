@@ -39,7 +39,7 @@ app.get("/scrape", function(req, res) {
   axios.get("http://www.apnews.com").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-
+console.log(response)
     // Now, we grab every h2 within an article tag, and do the following:
     $(".FeedCard h1").each(function(i, element) {
       // Save an empty result object
