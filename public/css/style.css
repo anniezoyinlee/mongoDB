@@ -14,10 +14,10 @@ body {
   height: 700px;
 }
 #notes {
-  width: 30%;
+  width: 25%;
   position: absolute;
-  top: 20px;
-  right: 0px;
+  top: 100px;
+  right: 20px;
 }
 .headline {
   font-size: 50px;
